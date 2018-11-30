@@ -66,7 +66,6 @@ $ExpenseHistory = mysqli_query($mysqli,$GetExpenseHistory);
             <!-- /.row -->
             <a href="index.php?page=Transaction" class="btn white btn-success "><i class="fa fa-plus"></i> <?php echo $NewTransaction; ?></a>
             <a href="pages/ExpenseReportPdf.php?filter=<?php echo $SearchTerm; ?>" class="btn white btn-warning"><i class="glyphicon glyphicon-download-alt"></i> <?php echo $DownloadExpenseReports; ?></a>
-            <a href="pages/ExpenseReportCSV.php?filter=<?php echo $SearchTerm; ?>" class="btn white btn-warning"><i class="glyphicon glyphicon-download-alt"></i> <?php echo $DownloadExpenseCSV; ?></a>
             <div class="row">
 				<?php if ($msgBox) { echo $msgBox; } ?>
                 <div class="col-lg-12">

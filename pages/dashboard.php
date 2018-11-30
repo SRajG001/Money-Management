@@ -234,53 +234,7 @@ $Budgets = mysqli_query($mysqli, $Getbudgets);
                             </div>
                     </div> 
                     </div>       
-                    <!-- /.panel -->
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> <?php echo $BudgetProgressOn ;?> <b><?php echo date("F Y");?></b>
-                            
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-									<?php while($BudgetCols =mysqli_fetch_assoc($Budgets)) { 
-										
-										// calculate out expense
-										$Out	= ($BudgetCols['Amount'] - $BudgetCols['Totals']);
-										
-										$Exceed = Percentages($BudgetCols['Per']/$Out).' %';
-
-										if($Exceed<0 OR $Exceed >100){
-												$Exceed = '<label class="label label-danger">Over Budget</label>';
-												
-											}else{
-                                                $Exceed = 100*$BudgetCols['Per']/$Out.' %';
-                                            }
-										
-										?>
-											<div>
-											<p>
-                                                 
-												<label class="label label-info"><?php echo $BudgetCols['CategoryName'];?></label> 
-												<span class="pull-right text-muted"><?php echo $Budgetss;?> <?php echo $ColUser['Currency'].' '.number_format($BudgetCols['Amount']);?></span>
-											</p>
-											
-											<div class="text-right panel panel-yellow"><div class="panel-heading"><?php echo $Outs;?>: <?php echo $ColUser['Currency'].' '.number_format($Out);?> <?php echo $RemainingBudget;?>: <?php echo $ColUser['Currency'].' '.number_format($BudgetCols['Totals']);?></div></div><br/>
-										</div>
-										<?php } ?>
-                                </div>
-                                <div class="text-center"></div>
-                                <!-- /.col-lg-4 (nested) -->
-                                
-                                <!-- /.col-lg-8 (nested) -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                   
+                    <!-- /.panel -->                   
                    
                 </div>
                 <!-- /.col-lg-8 -->
@@ -331,93 +285,13 @@ $Budgets = mysqli_query($mysqli, $Getbudgets);
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->   
-                    <!-- /.panel -->
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> <?php echo $ReportsExpenseIncome ;?>
-                        </div>
-                        <div class="panel-body">
-                            <div id="incomevsexpense">
-                            <div class="panel panel-primary">
-                        
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>  
-                        </div>
-                    </div>
-                            </div>
-                            
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                   
-                   <!-- /.panel -->
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> <?php echo $ReportsExpenseIncomeM ;?>
-                        </div>
-                        <div class="panel-body">
-                            <div id="incomevsexpensemonth">
-								
-                            </div>
-                            
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                    <!-- /.panel .chat-panel -->
+
                 </div>
                 <!-- /.col-lg-4 -->
             </div>
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
-
-   <script>
-
-
-    $(function() {
-		 		
-		Morris.Donut({
-        element: 'incomevsexpense',
-        data: [
-			
-			{
-            label: "<?php echo 'Expense '.$ColUser['Currency'];?>",
-            value: <?php  echo $colsDounat['AmountExpense'] ;?>
-			},
-			{
-            label: "<?php echo 'Income '.$ColUser['Currency'];?>",
-            value: <?php  echo $colsDounat['AmountIncome'] ;?>
-			},		
-        ],
-        resize: true
-		});
-		
-		Morris.Donut({
-        element: 'incomevsexpensemonth',
-        data: [
-			
-			{
-            label: "<?php echo 'Expense '.$ColUser['Currency'];?>",
-            value: <?php  echo $ColsDounatMonth['AmountExpense'] ;?>
-			},
-			{
-            label: "<?php echo 'Income '.$ColUser['Currency'];?>",
-            value: <?php  echo $ColsDounatMonth['AmountIncome'] ;?>
-			},		
-        ],
-        resize: true
-    });
-     $('.notification').tooltip({
-        selector: "[data-toggle=tooltip]",
-        container: "body"
-    })
-
-    });
-    </script>
-   
 
 </body>
 
