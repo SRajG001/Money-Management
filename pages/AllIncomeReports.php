@@ -96,9 +96,9 @@ $IncomeHistory = mysqli_query($mysqli,$GetIncomeHistory);
                             <i class="fa fa-bar-chart-o fa-fw"></i> <?php echo $OverallReport; ?>
                         </div>
                         <div class="panel-body">
-                            <p class="btn btn-primary"><?php echo $TotalIncomeToday; ?> <?php echo $ColUser['Currency'].' '.number_format($IncomeOverall);?></p><br/><br/>
+                            <p class="btn btn-primary"><?php echo $TotalIncomeToday; ?> <?php echo $ColUser['Currency'].' '.number_format($IncomeToday);?></p><br/><br/>
                             <p class="btn btn-warning"><?php echo $TotalIncomeThisMonth; ?> <?php echo $ColUser['Currency'].' '.number_format($IncomeThisMonth);?></p><br/><br/>
-                            <p class="btn btn-info"><?php echo $TotalIncomeReport; ?> <?php echo $ColUser['Currency'].' '.number_format($IncomeToday);?></p><br/><br/>
+                            <p class="btn btn-info"><?php echo $TotalIncomeReport; ?> <?php echo $ColUser['Currency'].' '.number_format($IncomeOverall);?></p><br/><br/>
                         </div>
                     </div>
                 </div>
@@ -169,7 +169,6 @@ $IncomeHistory = mysqli_query($mysqli,$GetIncomeHistory);
                 <!-- /.col-lg-4 -->
             </div>
             <a href="pages/IncomeReportPdf.php?filter=<?php echo $SearchTerm; ?>" class="btn white btn-warning"><i class="glyphicon glyphicon-download-alt"></i> <?php echo $DownloadIncomeReports; ?></a>
-            <a href="pages/IncomeReportCSV.php?filter=<?php echo $SearchTerm; ?>" class="btn white btn-warning"><i class="glyphicon glyphicon-download-alt"></i> <?php echo $DownloadIncomeCSV; ?></a>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">

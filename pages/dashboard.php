@@ -40,6 +40,17 @@ $GetAllExpenseDate 	 = "SELECT SUM(Amount) AS Amount FROM bills WHERE UserId = $
 $GetAExpenseDate		 = mysqli_query($mysqli, $GetAllExpenseDate);
 $ExpenseColDate 		 = mysqli_fetch_assoc($GetAExpenseDate);
 
+// Get all  Income
+$GetAllIncomeOverall    = "SELECT SUM(Amount) AS Amount FROM assets WHERE UserId = $UserId" ;
+$GetAIncomeOverall      = mysqli_query($mysqli, $GetAllIncomeOverall);
+$IncomeColOverall       = mysqli_fetch_assoc($GetAIncomeOverall);
+$IncomeOverall          = $IncomeColOverall['Amount'];
+
+// Get all Expense
+$GetAllBillsOverall    = "SELECT SUM(Amount) AS Amount FROM bills WHERE UserId = $UserId ";
+$GetABillsOverall      = mysqli_query($mysqli, $GetAllBillsOverall);
+$BillsColOverall       = mysqli_fetch_assoc($GetABillsOverall);
+$BillsOverall          = $BillsColOverall['Amount'];
 
 // Budget Progress
 $Getbudgets = "SELECT AmountIncome As Amount, (AmountIncome - AmountExpense) As Totals, AmountExpense/(AmountIncome - AmountExpense) * 100/100 AS Per,CategoryName
@@ -204,38 +215,7 @@ $Budgets = mysqli_query($mysqli, $Getbudgets);
                     </div>
                     
                     <!-- /.panel -->
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> <?php echo $AccountBalance ?></b>
-                            
-                        </div>
-                   <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                                <tr>
-                                                    <th><?php echo $Title;?></th>
-                                                    <th><?php echo $Amount;?></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                 <?php while($col = mysqli_fetch_assoc($Dount)){ ?>
-                                                <tr>
-                                                    <td><?php echo $col['AccountName'];?></td>
-                                                    <td class="text-right"><?php echo $ColUser['Currency'].' '.number_format($col['Amount']);?></td>
-                                                </tr>
-                                               <?php } ?>   
-                                            </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            </div>
-                    </div> 
-                    </div>       
-                    <!-- /.panel -->                   
-                   
+                    
                 </div>
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-6">
@@ -288,10 +268,119 @@ $Budgets = mysqli_query($mysqli, $Getbudgets);
 
                 </div>
                 <!-- /.col-lg-4 -->
+                
             </div>
             <!-- /.row -->
+            <div class="col-lg-12">
+                    <!-- /.panel -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> <?php echo $OverallReport; ?>
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-donut-chart"></div>  
+                        </div>
+                    </div>
+                </div>
+                 
         </div>
         <!-- /#page-wrapper -->
+        <script>
+
+
+    $(function() {
+		
+		$('#calendar').fullCalendar({
+			header:{
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month, agendaWeek,agendaDay'
+				},
+			allDayDefault: true,
+			editable: false,
+			backgroundColor : '#428bca',
+			events:{
+					url:'includes/get-daily.php',
+					error: function(){
+							alert('there was an error while fetching events!');
+						
+						},
+				},		
+		eventRender: function(event, element) {
+				element.find(".fc-content").remove();
+				element.find(".fc-event-time").remove();
+				var new_description =   
+						event.title + '<br/>'
+						+  event.names + '<br/>';
+						element.append(new_description);
+				},
+				
+			loading: function(bool){
+					$('#loading').toggle(bool);
+					
+				}		
+			
+			});
+			
+			$('#expense-calendar').fullCalendar({
+			header:{
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month, agendaWeek,agendaDay'
+				},
+			allDayDefault: true,
+			editable: false,
+			backgroundColor : '#428bca',
+			events:{
+					url:'includes/get-expense-daily.php',
+					error: function(){
+							alert('there was an error while fetching events!');
+						
+						},
+				},		
+		eventRender: function(event, element) {
+				element.find(".fc-content").remove();
+				element.find(".fc-event-time").remove();
+				var new_description =   
+						event.title + '<br/>'
+						+  event.names + '<br/>';
+						element.append(new_description);
+				},
+				
+			loading: function(bool){
+					$('#loading').toggle(bool);
+					
+				}		
+			
+			});
+		
+		
+		
+		Morris.Donut({
+        element: 'morris-donut-chart',
+        data: [
+			
+			
+            {
+            label: "<?php echo $Incomes .' '. $ColUser['Currency'];?>",
+            value: <?php echo $IncomeOverall ;?>
+            },
+            {
+            label: "<?php echo $Expenses .' '. $ColUser['Currency'];?>",
+            value: <?php echo  $BillsOverall;?>
+            },	
+       ],
+        resize: true
+    });
+
+     $('.notification').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+
+    });
+    </script>
+
 
 </body>
 

@@ -121,11 +121,7 @@ include ('includes/notification.php');
                     
 
                                     
-                        </li>                           
-                        </li>
-                        <li><a <?php ActiveClass("index.php?page=ManageBudget");?> href="index.php?page=ManageBudget"><i class="fa fa-archive"></i> <?php echo $BudgetsM;?><span class="fa arrow"></a>
-                        </li>
-                        
+                        </li>                                                   
                     <li>
                         <a class="parent" href="javascript:void(0)"><i class="fa fa-gears"> </i> <?php echo $Settings;?><span class="fa arrow"></a>
                         <ul class="nav nav-second-level" id="subitem">

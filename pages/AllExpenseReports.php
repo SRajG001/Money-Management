@@ -96,9 +96,9 @@ $IncomeHistory = mysqli_query($mysqli,$GetIncomeHistory);
                             <i class="fa fa-bar-chart-o fa-fw"></i> <?php echo $OverallReport; ?>
                         </div>
                         <div class="panel-body">
-                            <p class="btn btn-primary"><?php echo $TotalExpenseToday; ?> <?php echo $ColUser['Currency'].' '.number_format($BillsOverall);?></p><br/><br/>
+                            <p class="btn btn-primary"><?php echo $TotalExpenseToday; ?> <?php echo $ColUser['Currency'].' '.number_format($BillToday);?></p><br/><br/>
                             <p class="btn btn-warning"><?php echo $TotalExpenseThisMonth; ?> <?php echo $ColUser['Currency'].' '.number_format($BillThisMonth);?></p><br/><br/>
-                            <p class="btn btn-info"><?php echo $TotalExpenseReport; ?> <?php echo $ColUser['Currency'].' '.number_format($BillToday);?></p><br/><br/>
+                            <p class="btn btn-info"><?php echo $TotalExpenseReport; ?> <?php echo $ColUser['Currency'].' '.number_format($BillsOverall);?></p><br/><br/>
                         </div>
                     </div>
                 </div>
